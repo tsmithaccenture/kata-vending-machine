@@ -22,3 +22,9 @@ TEST(CoinTests, shouldReturnValueOfCoin_whenSentNickel){
 
     EXPECT_EQ(nickel.value, coin.getValue());
 }
+
+TEST(CoinTests, shouldReturnValueZero_whenSentPenny){
+    Coin coin = Coin(19.05);
+
+    EXPECT_EQ(0, coin.getValue());
+}

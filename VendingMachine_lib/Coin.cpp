@@ -10,17 +10,19 @@ private:
     Nickel nickel;
 
 public:
-    Coin(double diameter) {
+    explicit Coin(double diameter) {
         _diameter = diameter;
     }
 
     double getValue() {
-        double result = quarter.value;
+        double result = 0;
 
         if (_diameter == dime.diameter)
             result = dime.value;
         else if (_diameter == nickel.diameter)
             result = nickel.value;
+        else if (_diameter == quarter.diameter)
+            result = quarter.value;
 
         return result;
     }
