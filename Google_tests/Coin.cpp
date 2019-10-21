@@ -1,15 +1,24 @@
 #include "gtest/gtest.h"
 #include <Coin.cpp>
 
-TEST(CoinTests, shouldReturnValueOfCoin_whenSentQuarter){
-    Coin coin = Coin(24.26, 5.67);
 
-    EXPECT_EQ(0.25, coin.getValue());
+TEST(CoinTests, shouldReturnValueOfCoin_whenSentQuarter){
+    Quarter quarter;
+    Coin coin = Coin(24.26); //weight: 5.67
+
+    EXPECT_EQ(quarter.value, coin.getValue());
 }
 
 TEST(CoinTests, shouldReturnValueOfCoin_whenSentDime){
-    Coin coin = Coin(17.91, 2.268);
+    Dime dime;
+    Coin coin = Coin(dime.diameter); //weight: 2.268
 
-    EXPECT_EQ(0.1, coin.getValue());
+    EXPECT_EQ(dime.value, coin.getValue());
 }
 
+TEST(CoinTests, shouldReturnValueOfCoin_whenSentNickel){
+    Nickel nickel;
+    Coin coin = Coin(nickel.diameter);
+
+    EXPECT_EQ(nickel.value, coin.getValue());
+}
