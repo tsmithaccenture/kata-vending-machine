@@ -5,25 +5,23 @@
 class Coin {
 private:
     double _diameter;
-    double _weight;
     Quarter quarter;
     Dime dime;
     Nickel nickel;
 
 public:
-    explicit Coin(double diameter, double weight) {
+    explicit Coin(double diameter) {
         _diameter = diameter;
-        _weight = weight;
     }
 
     double getValue() {
         double result = 0;
 
-        if (_diameter == nickel.diameter && _weight == nickel.weight)
+        if (_diameter == nickel.diameter)
             result = nickel.value;
-        else if (_diameter == dime.diameter && _weight == dime.weight)
+        else if (_diameter == dime.diameter)
             result = dime.value;
-        else if (_diameter == quarter.diameter && _weight == quarter.weight)
+        else if (_diameter == quarter.diameter)
             result = quarter.value;
 
         return result;

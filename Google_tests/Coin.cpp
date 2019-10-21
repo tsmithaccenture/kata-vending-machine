@@ -4,46 +4,26 @@ Quarter quarter;
 Dime dime;
 Nickel nickel;
 
-double invalidWeight = 0.1;
-
 TEST(CoinTests, shouldReturnValueOfCoin_whenSentQuarter){
-    Coin coin = Coin(quarter.diameter, quarter.weight);
+    Coin coin = Coin(quarter.diameter);
 
     EXPECT_EQ(quarter.value, coin.getValue());
 }
 
 TEST(CoinTests, shouldReturnValueOfCoin_whenSentDime){
-    Coin coin = Coin(dime.diameter, dime.weight);
+    Coin coin = Coin(dime.diameter);
 
     EXPECT_EQ(dime.value, coin.getValue());
 }
 
 TEST(CoinTests, shouldReturnValueOfCoin_whenSentNickel){
-    Coin coin = Coin(nickel.diameter, nickel.weight);
+    Coin coin = Coin(nickel.diameter);
 
     EXPECT_EQ(nickel.value, coin.getValue());
 }
 
 TEST(CoinTests, shouldReturnValueZero_whenSentPenny){
-    Coin coin = Coin(19.05, 0);
-
-    EXPECT_EQ(0, coin.getValue());
-}
-
-TEST(CoinTests, shouldReturnValueZero_whenSentQuarterWithInvalidWeight){
-    Coin coin = Coin(quarter.diameter, invalidWeight);
-
-    EXPECT_EQ(0, coin.getValue());
-}
-
-TEST(CoinTests, shouldReturnValueZero_whenSentDimeWithInvalidWeight){
-    Coin coin = Coin(dime.diameter, invalidWeight);
-
-    EXPECT_EQ(0,coin.getValue());
-}
-
-TEST(CoinTests, shouldReturnValueZero_whenSentNickleWithInvalidWeight){
-    Coin coin = Coin(nickel.diameter, invalidWeight);
+    Coin coin = Coin(19.05);
 
     EXPECT_EQ(0, coin.getValue());
 }
