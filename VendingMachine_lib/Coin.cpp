@@ -19,7 +19,7 @@ public:
     double getValue() {
         double result = 0;
 
-        if (_diameter == nickel.diameter)
+        if (_diameter == nickel.diameter && _weight == nickel.weight)
             result = nickel.value;
         else if (_diameter == dime.diameter && _weight == dime.weight)
             result = dime.value;

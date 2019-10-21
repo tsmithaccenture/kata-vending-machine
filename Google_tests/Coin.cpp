@@ -2,6 +2,8 @@
 #include <Coin.cpp>
 Quarter quarter;
 Dime dime;
+Nickel nickel;
+
 double invalidWeight = 0.1;
 
 TEST(CoinTests, shouldReturnValueOfCoin_whenSentQuarter){
@@ -17,8 +19,7 @@ TEST(CoinTests, shouldReturnValueOfCoin_whenSentDime){
 }
 
 TEST(CoinTests, shouldReturnValueOfCoin_whenSentNickel){
-    Nickel nickel;
-    Coin coin = Coin(nickel.diameter, 0);
+    Coin coin = Coin(nickel.diameter, nickel.weight);
 
     EXPECT_EQ(nickel.value, coin.getValue());
 }
@@ -35,8 +36,14 @@ TEST(CoinTests, shouldReturnValueZero_whenSentQuarterWithInvalidWeight){
     EXPECT_EQ(0, coin.getValue());
 }
 
-TEST(CoinTest, ShouldReturnValueZero_whenSentDimeWithInvalidWeight){
+TEST(CoinTests, shouldReturnValueZero_whenSentDimeWithInvalidWeight){
     Coin coin = Coin(dime.diameter, invalidWeight);
 
     EXPECT_EQ(0,coin.getValue());
+}
+
+TEST(CoinTests, shouldReturnValueZero_whenSentNickleWithInvalidWeight){
+    Coin coin = Coin(nickel.diameter, invalidWeight);
+
+    EXPECT_EQ(0, coin.getValue());
 }
