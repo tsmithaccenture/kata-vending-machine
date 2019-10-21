@@ -19,10 +19,10 @@ public:
     double getValue() {
         double result = 0;
 
-        if (_diameter == dime.diameter)
-            result = dime.value;
-        else if (_diameter == nickel.diameter)
+        if (_diameter == nickel.diameter)
             result = nickel.value;
+        else if (_diameter == dime.diameter && _weight == dime.weight)
+            result = dime.value;
         else if (_diameter == quarter.diameter && _weight == quarter.weight)
             result = quarter.value;
 
