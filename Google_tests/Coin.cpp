@@ -2,6 +2,7 @@
 #include <Coin.cpp>
 Quarter quarter;
 Dime dime;
+double invalidWeight = 0.1;
 
 TEST(CoinTests, shouldReturnValueOfCoin_whenSentQuarter){
     Coin coin = Coin(quarter.diameter, quarter.weight);
@@ -29,13 +30,13 @@ TEST(CoinTests, shouldReturnValueZero_whenSentPenny){
 }
 
 TEST(CoinTests, shouldReturnValueZero_whenSentQuarterWithInvalidWeight){
-    Coin coin = Coin(quarter.diameter, 0.1);
+    Coin coin = Coin(quarter.diameter, invalidWeight);
 
     EXPECT_EQ(0, coin.getValue());
 }
 
 TEST(CoinTest, ShouldReturnValueZero_whenSentDimeWithInvalidWeight){
-    Coin coin = Coin(dime.diameter, 0.1);
+    Coin coin = Coin(dime.diameter, invalidWeight);
 
     EXPECT_EQ(0,coin.getValue());
 }
