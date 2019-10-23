@@ -1,7 +1,16 @@
 #include "VendingMachine.h"
 
-string VendingMachine::GetMessage() {
-    return "INSERT COIN";
+#include <iomanip>
+#include <sstream>
+
+std::string VendingMachine::GetMessage() {
+    std::stringstream stream;
+    string message = "INSERT COIN";
+    if (totalAmount > 0){
+        stream << std::setprecision(2) << totalAmount / 100.00;
+        message = stream.str();
+    }
+    return message;
 }
 
 void VendingMachine::InsertCoin(double diameter) {

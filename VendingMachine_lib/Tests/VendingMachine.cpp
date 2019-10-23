@@ -32,6 +32,12 @@ TEST(VendingMachineSuite, whenANickelDiameterIsInserted_thenUpdateTotalAmountToF
     EXPECT_EQ(nickelValue, vendingMachine.GetTotalAmount());
 }
 
+TEST(VendingMachineSuite, whenQuarterIsInsertedMessageIsUpdatedTo25Cents){
+    VendingMachine vendingMachine = VendingMachine();
+
+    vendingMachine.InsertCoin(quarterDiameter);
+    EXPECT_EQ("0.25", vendingMachine.GetMessage());
+}
 
 
 // handle valid quarter
