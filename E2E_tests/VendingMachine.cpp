@@ -2,12 +2,12 @@
 #include "gtest/gtest.h"
 
 TEST(AcceptanceTestSuite, whenNoCoinsAreInserted_thenInsertCoinIsDisplayed){
-    VendingMachine vendingMachine;
+    VendingMachine vendingMachine = VendingMachine();
     EXPECT_EQ("INSERT COIN", vendingMachine.GetMessage());
 }
 
 TEST(AcceptanceTestSuite, whenFourQuartersAreInserted_thenOneDollarIsDisplayed){
-    VendingMachine vendingMachine;
+    VendingMachine vendingMachine = VendingMachine();
 
     double quarterDiameter = 24.26;
 
