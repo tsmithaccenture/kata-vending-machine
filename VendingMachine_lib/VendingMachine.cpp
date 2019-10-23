@@ -28,3 +28,7 @@ void VendingMachine::InsertCoin(double diameter) {
 int VendingMachine::GetTotalAmount() {
     return totalAmount;
 }
+
+int VendingMachine::GetCoinReturnCount() {
+    return 0;
+}

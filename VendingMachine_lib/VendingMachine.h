@@ -19,6 +19,7 @@ public:
     string GetMessage();
     void InsertCoin(double diameter); 
     int GetTotalAmount();
+    int GetCoinReturnCount();
 };
 
 #endif
