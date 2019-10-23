@@ -15,10 +15,10 @@ std::string VendingMachine::GetMessage() {
 
 void VendingMachine::InsertCoin(double diameter) {
     if (diameter == dimeDiameter){
-        totalAmount = dimeValue;
+        totalAmount += dimeValue;
     }
     else if(diameter == nickelDiameter){
-        totalAmount = nickelValue;
+        totalAmount += nickelValue;
     }
     else if(diameter == quarterDiameter){
         totalAmount += quarterValue;
