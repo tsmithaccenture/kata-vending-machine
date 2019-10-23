@@ -3,8 +3,10 @@
 
 const double quarterDiameter = 24.26;
 const double dimeDiameter = 17.91;
+const double nickelDiameter = 21.21;
 const int dimeValue = 10;
 const int quarterValue = 25;
+const int nickelValue = 5;
 
 TEST(VendingMachineSuite, whenAQaurterDiameterIsInserted_thenUpdateTotalAmountToTwentyFive){
     VendingMachine vendingMachine = VendingMachine();
@@ -21,6 +23,16 @@ TEST(VendingMachineSuite, whenADimeDiameterIsInserted_thenUpdateTotalAmountToTen
 
     EXPECT_EQ(dimeValue, vendingMachine.GetTotalAmount());
 }
+
+TEST(VendingMachineSuite, whenANickelDiameterIsInserted_thenUpdateTotalAmountToFive){
+    VendingMachine vendingMachine = VendingMachine();
+
+    vendingMachine.InsertCoin(nickelDiameter);
+
+    EXPECT_EQ(nickelValue, vendingMachine.GetTotalAmount());
+}
+
+
 
 // handle valid quarter
 // handle valid dime
