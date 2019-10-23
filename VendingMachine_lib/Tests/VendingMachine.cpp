@@ -46,6 +46,12 @@ TEST(VendingMachineSuite, whenADimeIsInserted_thenMessageIsUpdatedTo10Cents){
     EXPECT_EQ("0.10", vendingMachine.GetMessage());
 }
 
+TEST(VendingMachineSuite, whenAPennyIsInserted_thenMessageSaysInsertCoin){
+    VendingMachine vendingMachine = VendingMachine();
+    double pennyDiameter = 19.05;
+    vendingMachine.InsertCoin(pennyDiameter);
+    EXPECT_EQ("INSERT COIN", vendingMachine.GetMessage());
+}
 
 // handle valid quarter
 // handle valid dime
