@@ -13,6 +13,7 @@ private:
     const int quarterValue = 25;
     const double nickelDiameter = 21.21;
     const int nickelValue = 5;
+    const double quarterDiameter = 24.26;
 
 public:
     string GetMessage();

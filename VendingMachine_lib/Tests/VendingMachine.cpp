@@ -48,9 +48,21 @@ TEST(VendingMachineSuite, whenADimeIsInserted_thenMessageIsUpdatedTo10Cents){
 
 TEST(VendingMachineSuite, whenAPennyIsInserted_thenMessageSaysInsertCoin){
     VendingMachine vendingMachine = VendingMachine();
+
     double pennyDiameter = 19.05;
     vendingMachine.InsertCoin(pennyDiameter);
+
     EXPECT_EQ("INSERT COIN", vendingMachine.GetMessage());
+}
+
+TEST(VendingMachineSuite, whenAPennyAndAQuarterAreInserted_thenUpdateTotalAmountToTwentyFive){
+    VendingMachine vendingMachine = VendingMachine();
+
+    double pennyDiameter = 19.05;
+    vendingMachine.InsertCoin(pennyDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+
+    EXPECT_EQ(25, vendingMachine.GetTotalAmount());
 }
 
 // handle valid quarter
