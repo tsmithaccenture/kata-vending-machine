@@ -1,20 +1,25 @@
 #include <VendingMachine.h>
 #include "gtest/gtest.h"
 
+const double quarterDiameter = 24.26;
+const double dimeDiameter = 17.91;
+const int dimeValue = 10;
+const int quarterValue = 25;
+
 TEST(VendingMachineSuite, whenAQaurterDiameterIsInserted_thenUpdateTotalAmountToTwentyFive){
     VendingMachine vendingMachine = VendingMachine();
 
-    vendingMachine.InsertCoin(24.26);
+    vendingMachine.InsertCoin(quarterDiameter);
 
-    EXPECT_EQ(25, vendingMachine.GetTotalAmount());
+    EXPECT_EQ(quarterValue, vendingMachine.GetTotalAmount());
 }
 
 TEST(VendingMachineSuite, whenADimeDiameterIsInserted_thenUpdateTotalAmountToTen){
     VendingMachine vendingMachine = VendingMachine();
 
-    vendingMachine.InsertCoin(17.91);
+    vendingMachine.InsertCoin(dimeDiameter);
 
-    EXPECT_EQ(10, vendingMachine.GetTotalAmount());
+    EXPECT_EQ(dimeValue, vendingMachine.GetTotalAmount());
 }
 
 // handle valid quarter
