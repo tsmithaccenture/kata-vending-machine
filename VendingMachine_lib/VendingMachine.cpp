@@ -5,13 +5,15 @@ string VendingMachine::GetMessage() {
 }
 
 void VendingMachine::InsertCoin(double diameter) {
-    if (diameter == dimeDiameter)
+    if (diameter == dimeDiameter){
         totalAmount = dimeValue;
-    if(diameter == nickelDiameter){
+    }
+    else if(diameter == nickelDiameter){
         totalAmount = nickelValue;
     }
-    else
+    else{
         totalAmount = quarterValue;
+    }
 }
 
 int VendingMachine::GetTotalAmount() {
