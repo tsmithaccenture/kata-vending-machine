@@ -6,6 +6,9 @@ using namespace std;
 
 class VendingMachine {
 
+private:
+    int totalAmount;
+
 public:
     string GetMessage();
     void InsertCoin(double diameter); 

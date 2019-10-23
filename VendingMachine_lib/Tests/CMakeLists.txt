@@ -1,6 +1,6 @@
 project(Tests)
 
-add_executable(Tests_run SimpleUnitTest.cpp VendingMachine.cpp)
+add_executable(Tests_run VendingMachine.cpp)
 
 target_link_libraries(Tests_run VendingMachine_lib)
 

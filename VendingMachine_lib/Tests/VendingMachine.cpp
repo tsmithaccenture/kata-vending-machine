@@ -9,7 +9,13 @@ TEST(VendingMachineSuite, whenAQaurterDiameterIsInserted_thenUpdateTotalAmountTo
     EXPECT_EQ(25, vendingMachine.GetTotalAmount());
 }
 
+TEST(VendingMachineSuite, whenADimeDiameterIsInserted_thenUpdateTotalAmountToTen){
+    VendingMachine vendingMachine = VendingMachine();
 
+    vendingMachine.InsertCoin(17.91);
+
+    EXPECT_EQ(10, vendingMachine.GetTotalAmount());
+}
 
 // handle valid quarter
 // handle valid dime
