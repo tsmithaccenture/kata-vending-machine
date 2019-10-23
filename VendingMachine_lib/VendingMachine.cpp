@@ -21,7 +21,7 @@ void VendingMachine::InsertCoin(double diameter) {
         totalAmount = nickelValue;
     }
     else if(diameter == quarterDiameter){
-        totalAmount = quarterValue;
+        totalAmount += quarterValue;
     }
 }
 

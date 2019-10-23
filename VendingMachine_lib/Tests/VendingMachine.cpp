@@ -74,6 +74,7 @@ TEST(VendingMachineSuite, whenADimeAndAQuarterAreInserted_thenUpdateTotalAmountT
     EXPECT_EQ(35, vendingMachine.GetTotalAmount());
 }
 
+
 // handle valid quarter
 // handle valid dime
 // handle valid nickel
