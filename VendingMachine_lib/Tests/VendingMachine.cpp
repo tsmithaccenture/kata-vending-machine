@@ -4,9 +4,9 @@
 const double quarterDiameter = 24.26;
 const double dimeDiameter = 17.91;
 const double nickelDiameter = 21.21;
-const int dimeValue = 10;
-const int quarterValue = 25;
-const int nickelValue = 5;
+const int dimeValueInCents = 10;
+const int quarterValueInCents = 25;
+const int nickelValueInCents = 5;
 const double pennyDiameter = 19.05;
 
 TEST(VendingMachineSuite, whenAQaurterDiameterIsInserted_thenUpdateTotalAmountToTwentyFive){
@@ -14,7 +14,7 @@ TEST(VendingMachineSuite, whenAQaurterDiameterIsInserted_thenUpdateTotalAmountTo
 
     vendingMachine.InsertCoin(quarterDiameter);
 
-    EXPECT_EQ(quarterValue, vendingMachine.GetTotalAmount());
+    EXPECT_EQ(quarterValueInCents, vendingMachine.GetTotalValueInCents());
 }
 
 TEST(VendingMachineSuite, whenADimeDiameterIsInserted_thenUpdateTotalAmountToTen){
@@ -22,7 +22,7 @@ TEST(VendingMachineSuite, whenADimeDiameterIsInserted_thenUpdateTotalAmountToTen
 
     vendingMachine.InsertCoin(dimeDiameter);
 
-    EXPECT_EQ(dimeValue, vendingMachine.GetTotalAmount());
+    EXPECT_EQ(dimeValueInCents, vendingMachine.GetTotalValueInCents());
 }
 
 TEST(VendingMachineSuite, whenANickelDiameterIsInserted_thenUpdateTotalAmountToFive){
@@ -30,7 +30,7 @@ TEST(VendingMachineSuite, whenANickelDiameterIsInserted_thenUpdateTotalAmountToF
 
     vendingMachine.InsertCoin(nickelDiameter);
 
-    EXPECT_EQ(nickelValue, vendingMachine.GetTotalAmount());
+    EXPECT_EQ(nickelValueInCents, vendingMachine.GetTotalValueInCents());
 }
 
 TEST(VendingMachineSuite, whenAQuarterIsInserted_thenMessageIsUpdatedTo25Cents){
@@ -61,7 +61,7 @@ TEST(VendingMachineSuite, whenAPennyAndAQuarterAreInserted_thenUpdateTotalAmount
     vendingMachine.InsertCoin(pennyDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
 
-    EXPECT_EQ(25, vendingMachine.GetTotalAmount());
+    EXPECT_EQ(25, vendingMachine.GetTotalValueInCents());
 }
 
 TEST(VendingMachineSuite, whenADimeAndAQuarterAreInserted_thenUpdateTotalAmountTo35){
@@ -70,7 +70,7 @@ TEST(VendingMachineSuite, whenADimeAndAQuarterAreInserted_thenUpdateTotalAmountT
     vendingMachine.InsertCoin(dimeDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
 
-    EXPECT_EQ(35, vendingMachine.GetTotalAmount());
+    EXPECT_EQ(35, vendingMachine.GetTotalValueInCents());
 }
 
 TEST(VendingMachineSuite, whenAQuarterAndNickelandDimeAreInserted_thenUpdateTotalAmountTo40){
@@ -80,7 +80,7 @@ TEST(VendingMachineSuite, whenAQuarterAndNickelandDimeAreInserted_thenUpdateTota
     vendingMachine.InsertCoin(dimeDiameter);
     vendingMachine.InsertCoin(nickelDiameter);
 
-    EXPECT_EQ(40, vendingMachine.GetTotalAmount());
+    EXPECT_EQ(40, vendingMachine.GetTotalValueInCents());
 }
 
 TEST(VendingMachineSuite, whenOnePennyIsInserted_thenInvalidCoinCountIsOne){
