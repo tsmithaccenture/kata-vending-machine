@@ -8,6 +8,7 @@ class VendingMachine {
 
 private:
     int totalAmount;
+    int invalidCoinCount;
     const double dimeDiameter = 17.91;
     const int dimeValue = 10;
     const int quarterValue = 25;
@@ -16,10 +17,11 @@ private:
     const double quarterDiameter = 24.26;
 
 public:
+    VendingMachine();
     string GetMessage();
     void InsertCoin(double diameter); 
     int GetTotalAmount();
-    int GetCoinReturnCount();
+    int GetInvalidCoinCount();
 };
 
 #endif

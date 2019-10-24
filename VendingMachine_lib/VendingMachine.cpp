@@ -23,12 +23,20 @@ void VendingMachine::InsertCoin(double diameter) {
     else if(diameter == quarterDiameter){
         totalAmount += quarterValue;
     }
+    else{
+        invalidCoinCount++;
+    }
 }
 
 int VendingMachine::GetTotalAmount() {
     return totalAmount;
 }
 
-int VendingMachine::GetCoinReturnCount() {
-    return 0;
+VendingMachine::VendingMachine() {
+    totalAmount = 0;
+    invalidCoinCount = 0;
+}
+
+int VendingMachine::GetInvalidCoinCount() {
+    return invalidCoinCount;
 }
