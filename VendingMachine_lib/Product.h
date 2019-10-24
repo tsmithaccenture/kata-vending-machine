@@ -7,9 +7,10 @@ using namespace std;
 class Product {
 public:
     int Id;
-    string Description;
     int PriceInCents;
     int Quantity;
+    void Dispense();
+    Product();
 };
 
 #endif

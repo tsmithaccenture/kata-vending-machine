@@ -1,5 +1,6 @@
 #include <VendingMachine.h>
 #include "gtest/gtest.h"
+#include "gmock/gmock.h"
 
 const double quarterDiameter = 24.26;
 const double dimeDiameter = 17.91;
@@ -98,3 +99,22 @@ TEST(VendingMachineSuite, whenOneQuarterIsInserted_thenInvalidCoinCountIsZero){
 
     EXPECT_EQ(0, vendingMachine.GetInvalidCoinCount());
 }
+
+TEST(VendingMachineSuite, whenSelectedProductIdIsSent_returnAvailablityToBuy){
+    VendingMachine vendingMachine = VendingMachine();
+
+    int productId = 1;
+    EXPECT_TRUE(vendingMachine.SelectProduct(productId));
+}
+
+TEST(VendingMachineSuite, WhenYouHaveADollar_thenYouShouldBeAbleToBuyASoda){ //condition of price if you have 1 dollar then select product should return true
+}
+
+TEST(VendingMachineSuite, whenYouDontHaveADollar_thenYouShouldntBeAbleToBuyASoda){ //
+}
+
+TEST(VendingMachineSuite, whenYouBuyASoda_thenOneProductShouldBeDispensed){ //dispense method 1 product returned
+
+}
+
+TEST(VendingMachineSuite, whenYouDontBuyASoda_thenNoProductsShouldBeDispensed) //dipsense

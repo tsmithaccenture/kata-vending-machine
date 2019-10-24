@@ -45,8 +45,8 @@ VendingMachine::VendingMachine(vector<Product> products) {
 
 }
 
-void VendingMachine::SelectProduct(int productId) {
-
+bool VendingMachine::SelectProduct(int productId) {
+    return false;
 }
 
 int VendingMachine::GetProductQuantity(int productId) {

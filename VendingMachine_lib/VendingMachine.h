@@ -22,7 +22,7 @@ public:
     void InsertCoin(double diameter); 
     int GetTotalValueInCents();
     int GetInvalidCoinCount();
-    void SelectProduct(int productId);
+    bool SelectProduct(int productId);
     int GetProductQuantity(int productId);
 
     VendingMachine(vector<Product> products);

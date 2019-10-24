@@ -32,12 +32,11 @@ TEST(AcceptanceTestSuite, whenOneInvalidCoinIsInserted_thenTheInvalidCoinIsRelea
     EXPECT_EQ(1, vendingMachine.GetInvalidCoinCount());
 }
 
-TEST(AcceptanceTestSuite, DISABLED_whenColaIsSelected_andOneDollarHasBeenInserted_thenColaIsDispensed){
+TEST(AcceptanceTestSuite, whenOneDollarHasBeenInserted_andColaIsSelected_thenColaIsDispensed){
     int colaId = 1;
 
     Product cola;
     cola.Id = colaId;
-    cola.Description = "Cola";
     cola.PriceInCents = 100;
     cola.Quantity = 2;
 
