@@ -1,6 +1,5 @@
 #include <VendingMachine.h>
 #include "gtest/gtest.h"
-#include "gmock/gmock.h"
 
 const double quarterDiameter = 24.26;
 const double dimeDiameter = 17.91;
@@ -9,6 +8,7 @@ const int dimeValueInCents = 10;
 const int quarterValueInCents = 25;
 const int nickelValueInCents = 5;
 const double pennyDiameter = 19.05;
+const int productPriceInCents = 100;
 
 TEST(VendingMachineSuite, whenAQaurterDiameterIsInserted_thenUpdateTotalAmountToTwentyFive){
     VendingMachine vendingMachine = VendingMachine();
@@ -100,21 +100,28 @@ TEST(VendingMachineSuite, whenOneQuarterIsInserted_thenInvalidCoinCountIsZero){
     EXPECT_EQ(0, vendingMachine.GetInvalidCoinCount());
 }
 
-TEST(VendingMachineSuite, whenSelectedProductIdIsSent_returnAvailablityToBuy){
+TEST(VendingMachineSuite, when50CentsIsInserted_andProductSelectedCostsOneDollar_thenAvailabilityToBuyIsFalse){
     VendingMachine vendingMachine = VendingMachine();
-
-    int productId = 1;
-    EXPECT_TRUE(vendingMachine.SelectProduct(productId));
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+    EXPECT_FALSE(vendingMachine.SelectProduct(productPriceInCents));
 }
 
-TEST(VendingMachineSuite, WhenYouHaveADollar_thenYouShouldBeAbleToBuyASoda){ //condition of price if you have 1 dollar then select product should return true
+TEST(VendingMachineSuite, WhenYouHaveADollarandProductSelectedCostsOneDollar_thenAvailabilityToBuyIsTrue){
+    VendingMachine vendingMachine = VendingMachine();
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+    EXPECT_TRUE(vendingMachine.SelectProduct(productPriceInCents));
 }
 
-TEST(VendingMachineSuite, whenYouDontHaveADollar_thenYouShouldntBeAbleToBuyASoda){ //
+TEST(VendingMachineSuite, whenOneDollarAndFiveCentsIsInserted_andProductSelectedCostsOneDollar_thenAvailabilityToBuyIsTrue){
+    VendingMachine vendingMachine = VendingMachine();
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(nickelDiameter);
+    EXPECT_TRUE(vendingMachine.SelectProduct(productPriceInCents));
 }
-
-TEST(VendingMachineSuite, whenYouBuyASoda_thenOneProductShouldBeDispensed){ //dispense method 1 product returned
-
-}
-
-TEST(VendingMachineSuite, whenYouDontBuyASoda_thenNoProductsShouldBeDispensed) //dipsense

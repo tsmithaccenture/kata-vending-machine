@@ -45,8 +45,8 @@ VendingMachine::VendingMachine(vector<Product> products) {
 
 }
 
-bool VendingMachine::SelectProduct(int productId) {
-    return false;
+bool VendingMachine::SelectProduct(int productCostInCents) {
+    return productCostInCents <= totalValueInCents;
 }
 
 int VendingMachine::GetProductQuantity(int productId) {
