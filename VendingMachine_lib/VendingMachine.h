@@ -18,7 +18,6 @@ private:
     const double nickelDiameter = 21.21;
     const int nickelValueInCents = 5;
     const double quarterDiameter = 24.26;
-    bool resetVendingMachine = false;
     bool productAvailability = false;
 
 
