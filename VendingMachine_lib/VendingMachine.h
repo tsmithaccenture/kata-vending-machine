@@ -12,33 +12,43 @@ static const int CHIPS_COST = 50;
 
 static const int CANDY_COST = 65;
 
+const double dimeDiameter = 17.91;
+
+const int dimeValueInCents = 10;
+
+const int quarterValueInCents = 25;
+
+const double nickelDiameter = 21.21;
+
+const int nickelValueInCents = 5;
+
+const double quarterDiameter = 24.26;
+
 class VendingMachine {
 
 private:
     int totalValueInCents;
     int purchasePriceInCents;
     int returnedCoinCount;
-    const double dimeDiameter = 17.91;
-    const int dimeValueInCents = 10;
-    const int quarterValueInCents = 25;
-    const double nickelDiameter = 21.21;
-    const int nickelValueInCents = 5;
-    const double quarterDiameter = 24.26;
-    bool productAvailability = false;
     bool exactChangeOnly = false;
 
 
 
 public:
+    bool ableToBuyProduct = false;
     void InsertCoin(double diameter);
     int GetTotalValueInCents();
     int GetReturnedCoinCount();
-    bool BuyProduct(int productCostInCents);
+    void BuyProduct(int productCostInCents);
     void ResetVendingMachine();
     std::string GetMessage();
-    void SelectProduct(std::string selectedProduct);
+    std::string ImplementationOfBuyingProcess(std::string selectedProduct);
     void ReturnCoins();
     void SetVendingMachine(bool SetExactChangeOnly);
+    void SetTotalAmount(int productCost);
+
+    void SetReturnedCoins(int amount);
+
 };
 
 #endif
