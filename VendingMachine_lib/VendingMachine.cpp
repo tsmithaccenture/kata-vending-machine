@@ -1,9 +1,12 @@
 #include "VendingMachine.h"
 
-std::string VendingMachine::GetMessage() {
+    std::string VendingMachine::GetMessage() {
     std::stringstream stream;
     std::string message = "INSERT COIN";
-    if(productAvailability) {
+    if(exactChangeOnly) {
+        message = "EXACT CHANGE ONLY";
+    }
+    else if(productAvailability) {
         message = "THANK YOU";
         ResetVendingMachine();
     }
@@ -71,8 +74,9 @@ void VendingMachine::ResetVendingMachine() {
 
 void VendingMachine::ReturnCoins() {
     returnedCoinCount += totalValueInCents;
-    totalValueInCents = 0; 
+    totalValueInCents = 0;
 }
 
-
-
+void VendingMachine::SetVendingMachine(bool SetExactChangeOnly){
+    exactChangeOnly = SetExactChangeOnly;
+}

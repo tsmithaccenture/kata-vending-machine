@@ -25,6 +25,8 @@ private:
     const int nickelValueInCents = 5;
     const double quarterDiameter = 24.26;
     bool productAvailability = false;
+    bool exactChangeOnly = false;
+
 
 
 public:
@@ -35,7 +37,8 @@ public:
     void ResetVendingMachine();
     std::string GetMessage();
     void SelectProduct(std::string selectedProduct);
-    void ReturnCoins(); 
+    void ReturnCoins();
+    void SetVendingMachine(bool SetExactChangeOnly);
 };
 
 #endif

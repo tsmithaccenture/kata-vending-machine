@@ -89,10 +89,17 @@ TEST(AcceptanceTestSuite, whenOneDollar_andReturnCoinsIsPressed_thenCoinReturnHa
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
 
-
     vendingMachine.ReturnCoins();
     EXPECT_EQ(100, vendingMachine.GetReturnedCoinCount());
 }
+
+TEST(AcceptanceTestSuite, whenExactChangeOnly_isInEnabled_EXACTCHANGEONLYIsDisplayed){
+    VendingMachine vendingMachine = VendingMachine();
+
+    vendingMachine.SetVendingMachine(true);
+    EXPECT_EQ("EXACT CHANGE ONLY", vendingMachine.GetMessage());
+}
+
 
 
 
