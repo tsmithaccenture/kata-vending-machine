@@ -1,5 +1,4 @@
 #include <VendingMachine.h>
-#include <Product.h>
 #include <vector>
 #include "gtest/gtest.h"
 
@@ -32,37 +31,41 @@ TEST(AcceptanceTestSuite, whenOneInvalidCoinIsInserted_thenTheInvalidCoinIsRelea
     EXPECT_EQ(1, vendingMachine.GetInvalidCoinCount());
 }
 
-TEST(AcceptanceTestSuite, DISABLED_whenOneDollarHasBeenInserted_andColaIsSelected_thenColaIsDispensed){
-    int colaId = 1;
-
-    Product cola;
-    cola.Id = colaId;
-    cola.PriceInCents = 100;
-    cola.Quantity = 2;
-
-    vector<Product> products;
-    products.push_back(cola);
-
-    VendingMachine vendingMachine = VendingMachine(products);
+TEST(AcceptanceTestSuite, whenOneDollarHasBeenInserted_andColaIsSelected_thenColaIsDispensed){
+    VendingMachine vendingMachine = VendingMachine();
 
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
 
-    vendingMachine.SelectProduct(colaId);
+    vendingMachine.SelectProduct(100);
+    EXPECT_EQ(0, vendingMachine.GetTotalValueInCents());
+}
 
-    EXPECT_EQ(1, vendingMachine.GetProductQuantity(colaId));
+TEST(AcceptanceTestSuite, whenOneDollarHasBeenInserted_andColaIsSelected_thenMessageSaysTHANKYOUThenFollowingMessageIsINSERTCOIN){
+    VendingMachine vendingMachine = VendingMachine();
+
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+
+   vendingMachine.SelectProduct(100);
+    EXPECT_EQ("THANK YOU", vendingMachine.GetMessage());
+    EXPECT_EQ("INSERT COIN", vendingMachine.GetMessage());
+}
+
+TEST(AcceptanceTestSuite, whenOneDollarHasBeenInserted_andColaIsSelected_thenMessageSaysPRICEandCostOfProduct){
+    VendingMachine vendingMachine = VendingMachine();
+
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+
+   vendingMachine.SelectProduct(100);
+    EXPECT_EQ("PRICE 1.00", vendingMachine.GetMessage());
 }
 
 
-//There are three products: cola for $1.00, chips for $0.50, and candy for $0.65.
 
-// When the respective button is pressed and enough money has been inserted,
-// the product is dispensed and the machine displays THANK YOU.
 
-// If the display is checked again, it will display INSERT COIN and the current amount will be set to $0.00.
-
-// If there is not enough money inserted then the machine displays PRICE
-// and the price of the item and subsequent checks of the display will display either INSERT COIN
-// or the current amount as appropriate.

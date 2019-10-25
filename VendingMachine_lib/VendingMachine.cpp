@@ -1,12 +1,18 @@
 #include "VendingMachine.h"
-#include <iomanip>
-#include <sstream>
-#include <vector>
 
 std::string VendingMachine::GetMessage() {
     std::stringstream stream;
-    string message = "INSERT COIN";
-    if (totalValueInCents > 0){
+    std::string message = "INSERT COIN";
+    if(DisplayThankYou) {
+        message = "THANK YOU";
+        totalValueInCents = 0;
+        DisplayThankYou = false;
+    }
+    else if(!productAvailability && totalCostInCents > 0){
+        stream << "PRICE " << std::fixed << std::setprecision(2) << totalCostInCents / 100.00;
+        message = stream.str();
+    }
+    else if (totalValueInCents > 0){
         stream << std::fixed << std::setprecision(2) << totalValueInCents / 100.00;
         message = stream.str();
     }
@@ -32,23 +38,20 @@ int VendingMachine::GetTotalValueInCents() {
     return totalValueInCents;
 }
 
-VendingMachine::VendingMachine() {
-    totalValueInCents = 0;
-    invalidCoinCount = 0;
-}
-
 int VendingMachine::GetInvalidCoinCount() {
     return invalidCoinCount;
 }
 
-VendingMachine::VendingMachine(vector<Product> products) {
+bool VendingMachine::SelectProduct(int totalProductCostInCents) {
+    productAvailability = totalProductCostInCents <= totalValueInCents;
+    totalCostInCents = totalProductCostInCents;
 
+    if(productAvailability) {
+        DisplayThankYou = true;
+        totalValueInCents -= totalProductCostInCents;
+    }
+    return productAvailability;
 }
 
-bool VendingMachine::SelectProduct(int productCostInCents) {
-    return productCostInCents <= totalValueInCents;
-}
 
-int VendingMachine::GetProductQuantity(int productId) {
-    return 0;
-}
+
