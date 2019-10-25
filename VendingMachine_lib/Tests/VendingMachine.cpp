@@ -89,7 +89,7 @@ TEST(VendingMachineSuite, whenOnePennyIsInserted_thenInvalidCoinCountIsOne){
 
     vendingMachine.InsertCoin(pennyDiameter);
 
-    EXPECT_EQ(1, vendingMachine.GetInvalidCoinCount());
+    EXPECT_EQ(1, vendingMachine.GetReturnedCoinCount());
 }
 
 TEST(VendingMachineSuite, whenOneQuarterIsInserted_thenInvalidCoinCountIsZero){
@@ -97,7 +97,7 @@ TEST(VendingMachineSuite, whenOneQuarterIsInserted_thenInvalidCoinCountIsZero){
 
     vendingMachine.InsertCoin(quarterDiameter);
 
-    EXPECT_EQ(0, vendingMachine.GetInvalidCoinCount());
+    EXPECT_EQ(0, vendingMachine.GetReturnedCoinCount());
 }
 
 TEST(VendingMachineSuite, when50CentsIsInserted_andProductSelectedCostsOneDollar_thenAvailabilityToBuyIsFalse){
@@ -177,14 +177,41 @@ TEST(VendingMachineSuite, whenOneDollarAndFivtyCentsIsInserted_andProductSelecte
 
 }
 
+TEST(VendingMachineSuite, when50CentsIsInserted_andProductSelectedCostsOneDollar_thenDisplayIsUpdatedToShowCost){
+    VendingMachine vendingMachine = VendingMachine();
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.SelectProduct(productPriceInCents);
+    EXPECT_EQ("PRICE 1.00",vendingMachine.GetMessage());
+}
 
-//TEST(VendingMachineSuite, when50CentsIsInserted_andProductSelectedCostsOneDollar_thenDisplayIsUpdatedToShowCost){
-//    VendingMachine vendingMachine = VendingMachine();
-//    vendingMachine.InsertCoin(quarterDiameter);
-//    vendingMachine.InsertCoin(quarterDiameter);
-//    vendingMachine.SelectProduct(productPriceInCents);
-//    EXPECT_EQ("PRICE 1.00",vendingMachine.GetMessage());
-//}
+TEST(AcceptanceTestSuite, whenOneDollarAndFivtyHasBeenInserted_andColaIsSelected_thenCoinReturnHasChange){
+    VendingMachine vendingMachine = VendingMachine();
+
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+
+    vendingMachine.SelectProduct(100);
+    EXPECT_EQ(50, vendingMachine.GetReturnedCoinCount());
+}
+
+TEST(AcceptanceTestSuite, whenOneDollarHasBeenInserted_andColaIsSelected_thenCoinReturnHasNoChange){
+    VendingMachine vendingMachine = VendingMachine();
+
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+
+    vendingMachine.SelectProduct(100);
+    EXPECT_EQ(0, vendingMachine.GetReturnedCoinCount());
+}
+
+
 
 
 

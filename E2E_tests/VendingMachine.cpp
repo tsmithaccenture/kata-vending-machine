@@ -23,12 +23,12 @@ TEST(AcceptanceTestSuite, whenFourQuartersAreInserted_thenOneDollarIsDisplayed){
 TEST(AcceptanceTestSuite, whenOneInvalidCoinIsInserted_thenTheInvalidCoinIsReleasedToCoinReturn){
     VendingMachine vendingMachine = VendingMachine();
 
-    EXPECT_EQ(0, vendingMachine.GetInvalidCoinCount());
+    EXPECT_EQ(0, vendingMachine.GetReturnedCoinCount());
 
     double pennyDiameter = 19.05;
     vendingMachine.InsertCoin(pennyDiameter);
 
-    EXPECT_EQ(1, vendingMachine.GetInvalidCoinCount());
+    EXPECT_EQ(1, vendingMachine.GetReturnedCoinCount());
 }
 
 TEST(AcceptanceTestSuite, whenOneDollarHasBeenInserted_andColaIsSelected_thenColaIsDispensed){
@@ -66,6 +66,19 @@ TEST(AcceptanceTestSuite, whenOneDollarHasBeenInserted_andColaIsSelected_thenMes
     EXPECT_EQ("PRICE 1.00", vendingMachine.GetMessage());
 }
 
+TEST(AcceptanceTestSuite, whenOneDollarAndFivtyHasBeenInserted_andColaIsSelected_thenCoinReturnHasChange){
+    VendingMachine vendingMachine = VendingMachine();
+
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+
+    vendingMachine.SelectProduct(100);
+    EXPECT_EQ(50, vendingMachine.GetReturnedCoinCount());
+}
 
 
 

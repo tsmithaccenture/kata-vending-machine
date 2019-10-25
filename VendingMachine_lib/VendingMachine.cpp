@@ -3,10 +3,9 @@
 std::string VendingMachine::GetMessage() {
     std::stringstream stream;
     std::string message = "INSERT COIN";
-    if(DisplayThankYou) {
+    if(resetVendingMachine) {
         message = "THANK YOU";
-        totalValueInCents = 0;
-        DisplayThankYou = false;
+        ResetVendingMachine();
     }
     else if(!productAvailability && totalCostInCents > 0){
         stream << "PRICE " << std::fixed << std::setprecision(2) << totalCostInCents / 100.00;
@@ -30,7 +29,7 @@ void VendingMachine::InsertCoin(double diameter) {
         totalValueInCents += quarterValueInCents;
     }
     else{
-        invalidCoinCount++;
+        returnedCoinCount++;
     }
 }
 
@@ -38,19 +37,28 @@ int VendingMachine::GetTotalValueInCents() {
     return totalValueInCents;
 }
 
-int VendingMachine::GetInvalidCoinCount() {
-    return invalidCoinCount;
+int VendingMachine::GetReturnedCoinCount() {
+    return returnedCoinCount;
 }
 
-bool VendingMachine::SelectProduct(int totalProductCostInCents) {
-    productAvailability = totalProductCostInCents <= totalValueInCents;
-    totalCostInCents = totalProductCostInCents;
+bool VendingMachine::SelectProduct(int productCostInCents) {
 
-    if(productAvailability) {
-        DisplayThankYou = true;
-        totalValueInCents -= totalProductCostInCents;
+    if(totalValueInCents >= productCostInCents){
+        productAvailability = true;
+        resetVendingMachine = true;
+        totalValueInCents -= productCostInCents;
+        returnedCoinCount += totalValueInCents;
     }
+    totalCostInCents = productCostInCents;
     return productAvailability;
+}
+
+void VendingMachine::ResetVendingMachine() {
+    resetVendingMachine = false;
+    productAvailability = false;
+    totalCostInCents = 0;
+    totalValueInCents = 0;
+
 }
 
 

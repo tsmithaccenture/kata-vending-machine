@@ -11,22 +11,22 @@ class VendingMachine {
 private:
     int totalValueInCents;
     int totalCostInCents;
-    int invalidCoinCount;
+    int returnedCoinCount;
     const double dimeDiameter = 17.91;
     const int dimeValueInCents = 10;
     const int quarterValueInCents = 25;
     const double nickelDiameter = 21.21;
     const int nickelValueInCents = 5;
     const double quarterDiameter = 24.26;
-    bool DisplayThankYou = false;
+    bool resetVendingMachine = false;
     bool productAvailability = false;
 
 
 public:
     void InsertCoin(double diameter);
     int GetTotalValueInCents();
-    int GetInvalidCoinCount();
-    bool SelectProduct(int productCost);
+    int GetReturnedCoinCount();
+    bool SelectProduct(int productCostInCents);
     void ResetVendingMachine();
     std::string GetMessage();
 };
