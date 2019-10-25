@@ -10,7 +10,7 @@ class VendingMachine {
 
 private:
     int totalValueInCents;
-    int totalCostInCents;
+    int purchasePriceInCents;
     int returnedCoinCount;
     const double dimeDiameter = 17.91;
     const int dimeValueInCents = 10;

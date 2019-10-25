@@ -7,8 +7,8 @@ std::string VendingMachine::GetMessage() {
         message = "THANK YOU";
         ResetVendingMachine();
     }
-    else if(!productAvailability && totalCostInCents > 0){
-        stream << "PRICE " << std::fixed << std::setprecision(2) << totalCostInCents / 100.00;
+    else if(!productAvailability && purchasePriceInCents > 0){
+        stream << "PRICE " << std::fixed << std::setprecision(2) << purchasePriceInCents / 100.00;
         message = stream.str();
     }
     else if (totalValueInCents > 0){
@@ -48,15 +48,14 @@ bool VendingMachine::SelectProduct(int productCostInCents) {
         totalValueInCents -= productCostInCents;
         returnedCoinCount += totalValueInCents;
     }
-    totalCostInCents = productCostInCents;
+    purchasePriceInCents = productCostInCents;
     return productAvailability;
 }
 
 void VendingMachine::ResetVendingMachine() {
     productAvailability = false;
-    totalCostInCents = 0;
+    purchasePriceInCents = 0;
     totalValueInCents = 0;
-
 }
 
 
