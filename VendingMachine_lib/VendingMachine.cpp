@@ -43,18 +43,17 @@ int VendingMachine::GetReturnedCoinCount() {
 
 void VendingMachine::SelectProduct(std::string selectedProduct) {
     if(selectedProduct.compare("cola") == 0){
-        BuyProduct(100);
+        BuyProduct(COLA_COST);
     }
     else if(selectedProduct.compare("chips")  == 0){
-        BuyProduct(50);
+        BuyProduct(CHIPS_COST);
     }
     else if(selectedProduct.compare("candy") == 0){
-        BuyProduct(65);
+        BuyProduct(CANDY_COST);
     }
 }
 
 bool VendingMachine::BuyProduct(int productCostInCents) {
-
     if(totalValueInCents >= productCostInCents){
         productAvailability = true;
         totalValueInCents -= productCostInCents;
@@ -68,6 +67,11 @@ void VendingMachine::ResetVendingMachine() {
     productAvailability = false;
     purchasePriceInCents = 0;
     totalValueInCents = 0;
+}
+
+void VendingMachine::ReturnCoins() {
+    returnedCoinCount += totalValueInCents;
+    totalValueInCents = 0; 
 }
 
 

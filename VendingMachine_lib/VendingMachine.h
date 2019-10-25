@@ -6,6 +6,12 @@
 #ifndef TESTING_TEST_VENDINGMACHINE_H
 #define TESTING_TEST_VENDINGMACHINE_H
 
+static const int COLA_COST = 100;
+
+static const int CHIPS_COST = 50;
+
+static const int CANDY_COST = 65;
+
 class VendingMachine {
 
 private:
@@ -29,6 +35,7 @@ public:
     void ResetVendingMachine();
     std::string GetMessage();
     void SelectProduct(std::string selectedProduct);
+    void ReturnCoins(); 
 };
 
 #endif

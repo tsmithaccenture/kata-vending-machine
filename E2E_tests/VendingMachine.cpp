@@ -81,6 +81,19 @@ TEST(AcceptanceTestSuite, whenOneDollarAndFivtyHasBeenInserted_andColaIsSelected
 }
 
 
+TEST(AcceptanceTestSuite, whenOneDollar_andReturnCoinsIsPressed_thenCoinReturnHasChange){
+    VendingMachine vendingMachine = VendingMachine();
+
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+    vendingMachine.InsertCoin(quarterDiameter);
+
+
+    vendingMachine.ReturnCoins();
+    EXPECT_EQ(100, vendingMachine.GetReturnedCoinCount());
+}
+
 
 
 
