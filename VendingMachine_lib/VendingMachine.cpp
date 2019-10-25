@@ -3,7 +3,7 @@
 std::string VendingMachine::GetMessage() {
     std::stringstream stream;
     std::string message = "INSERT COIN";
-    if(resetVendingMachine) {
+    if(productAvailability) {
         message = "THANK YOU";
         ResetVendingMachine();
     }
@@ -45,7 +45,6 @@ bool VendingMachine::SelectProduct(int productCostInCents) {
 
     if(totalValueInCents >= productCostInCents){
         productAvailability = true;
-        resetVendingMachine = true;
         totalValueInCents -= productCostInCents;
         returnedCoinCount += totalValueInCents;
     }
@@ -54,7 +53,6 @@ bool VendingMachine::SelectProduct(int productCostInCents) {
 }
 
 void VendingMachine::ResetVendingMachine() {
-    resetVendingMachine = false;
     productAvailability = false;
     totalCostInCents = 0;
     totalValueInCents = 0;
