@@ -25,9 +25,10 @@ public:
     void InsertCoin(double diameter);
     int GetTotalValueInCents();
     int GetReturnedCoinCount();
-    bool SelectProduct(int productCostInCents);
+    bool BuyProduct(int productCostInCents);
     void ResetVendingMachine();
     std::string GetMessage();
+    void SelectProduct(std::string selectedProduct);
 };
 
 #endif

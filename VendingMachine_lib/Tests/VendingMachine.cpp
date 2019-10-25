@@ -104,7 +104,7 @@ TEST(VendingMachineSuite, when50CentsIsInserted_andProductSelectedCostsOneDollar
     VendingMachine vendingMachine = VendingMachine();
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
-    EXPECT_FALSE(vendingMachine.SelectProduct(productPriceInCents));
+    EXPECT_FALSE(vendingMachine.BuyProduct(productPriceInCents));
 }
 
 TEST(VendingMachineSuite, WhenYouHaveADollarandProductSelectedCostsOneDollar_thenAvailabilityToBuyIsTrue){
@@ -113,7 +113,7 @@ TEST(VendingMachineSuite, WhenYouHaveADollarandProductSelectedCostsOneDollar_the
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
-    EXPECT_TRUE(vendingMachine.SelectProduct(productPriceInCents));
+    EXPECT_TRUE(vendingMachine.BuyProduct(productPriceInCents));
 }
 
 TEST(VendingMachineSuite, WhenYouHaveADollarandProductSelectedCosts50Cents_thenTotalAmountIsReduced){
@@ -122,7 +122,7 @@ TEST(VendingMachineSuite, WhenYouHaveADollarandProductSelectedCosts50Cents_thenT
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
-    vendingMachine.SelectProduct(50);
+    vendingMachine.BuyProduct(50);
     EXPECT_EQ(50, vendingMachine.GetTotalValueInCents());
 }
 
@@ -132,7 +132,7 @@ TEST(VendingMachineSuite, WhenYouHaveADollarandProductSelectedCostsOneDollarCent
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
-    vendingMachine.SelectProduct(productPriceInCents);
+    vendingMachine.BuyProduct(productPriceInCents);
     EXPECT_EQ(0, vendingMachine.GetTotalValueInCents());
 }
 
@@ -142,7 +142,7 @@ TEST(VendingMachineSuite, whenOneDollarIsInserted_andProductSelectedCostsOneDoll
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
-    vendingMachine.SelectProduct(productPriceInCents);
+    vendingMachine.BuyProduct(productPriceInCents);
 
     EXPECT_EQ("THANK YOU",vendingMachine.GetMessage());
 }
@@ -153,7 +153,7 @@ TEST(VendingMachineSuite, whenOneDollarIsInserted_andProductSelectedCostsOneDoll
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
-    vendingMachine.SelectProduct(productPriceInCents);
+    vendingMachine.BuyProduct(productPriceInCents);
 
     EXPECT_EQ("THANK YOU",vendingMachine.GetMessage());
     EXPECT_EQ("INSERT COIN",vendingMachine.GetMessage());
@@ -161,15 +161,13 @@ TEST(VendingMachineSuite, whenOneDollarIsInserted_andProductSelectedCostsOneDoll
 
 }
 
-TEST(VendingMachineSuite, whenOneDollarAndFivtyCentsIsInserted_andProductSelectedCostsOneDollar_thenDisplayTHANKYOUThenINSERTCOIN){
+TEST(VendingMachineSuite, whenOneDollarIsInserted_andProductSelectedCostsSixtyFiveCents_thenDisplayTHANKYOUThenINSERTCOIN){
     VendingMachine vendingMachine = VendingMachine();
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
-    vendingMachine.InsertCoin(quarterDiameter);
-    vendingMachine.InsertCoin(quarterDiameter);
-    vendingMachine.SelectProduct(productPriceInCents);
+    vendingMachine.SelectProduct("candy");
 
     EXPECT_EQ("THANK YOU",vendingMachine.GetMessage());
     EXPECT_EQ("INSERT COIN",vendingMachine.GetMessage());
@@ -177,25 +175,24 @@ TEST(VendingMachineSuite, whenOneDollarAndFivtyCentsIsInserted_andProductSelecte
 
 }
 
-TEST(VendingMachineSuite, when50CentsIsInserted_andProductSelectedCostsOneDollar_thenDisplayIsUpdatedToShowCost){
+TEST(VendingMachineSuite, when25CentsIsInserted_andProductSelectedCostsOneDollar_thenDisplayIsUpdatedToShowCost){
     VendingMachine vendingMachine = VendingMachine();
     vendingMachine.InsertCoin(quarterDiameter);
-    vendingMachine.InsertCoin(quarterDiameter);
-    vendingMachine.SelectProduct(productPriceInCents);
-    EXPECT_EQ("PRICE 1.00",vendingMachine.GetMessage());
+    vendingMachine.SelectProduct("chips");
+    EXPECT_EQ("PRICE 0.50",vendingMachine.GetMessage());
 }
 
-TEST(AcceptanceTestSuite, whenOneDollarAndFivtyHasBeenInserted_andColaIsSelected_thenCoinReturnHasChange){
+TEST(AcceptanceTestSuite, whenOneDollarHasBeenInserted_andChipsIsSelected_thenCoinReturnHasChange){
     VendingMachine vendingMachine = VendingMachine();
 
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
-    vendingMachine.InsertCoin(quarterDiameter);
-    vendingMachine.InsertCoin(quarterDiameter);
 
-    vendingMachine.SelectProduct(100);
+
+
+    vendingMachine.SelectProduct("chips");
     EXPECT_EQ(50, vendingMachine.GetReturnedCoinCount());
 }
 
@@ -207,9 +204,10 @@ TEST(AcceptanceTestSuite, whenOneDollarHasBeenInserted_andColaIsSelected_thenCoi
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
 
-    vendingMachine.SelectProduct(100);
+    vendingMachine.SelectProduct("cola");
     EXPECT_EQ(0, vendingMachine.GetReturnedCoinCount());
 }
+
 
 
 

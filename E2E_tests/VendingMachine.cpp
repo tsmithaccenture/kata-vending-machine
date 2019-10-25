@@ -39,7 +39,7 @@ TEST(AcceptanceTestSuite, whenOneDollarHasBeenInserted_andColaIsSelected_thenCol
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
 
-    vendingMachine.SelectProduct(100);
+    vendingMachine.SelectProduct("cola");
     EXPECT_EQ(0, vendingMachine.GetTotalValueInCents());
 }
 
@@ -51,7 +51,7 @@ TEST(AcceptanceTestSuite, whenOneDollarHasBeenInserted_andColaIsSelected_thenMes
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
 
-   vendingMachine.SelectProduct(100);
+    vendingMachine.SelectProduct("cola");
     EXPECT_EQ("THANK YOU", vendingMachine.GetMessage());
     EXPECT_EQ("INSERT COIN", vendingMachine.GetMessage());
 }
@@ -62,7 +62,7 @@ TEST(AcceptanceTestSuite, whenOneDollarHasBeenInserted_andColaIsSelected_thenMes
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
 
-   vendingMachine.SelectProduct(100);
+    vendingMachine.SelectProduct("cola");
     EXPECT_EQ("PRICE 1.00", vendingMachine.GetMessage());
 }
 
@@ -76,9 +76,11 @@ TEST(AcceptanceTestSuite, whenOneDollarAndFivtyHasBeenInserted_andColaIsSelected
     vendingMachine.InsertCoin(quarterDiameter);
     vendingMachine.InsertCoin(quarterDiameter);
 
-    vendingMachine.SelectProduct(100);
+    vendingMachine.SelectProduct("cola");
     EXPECT_EQ(50, vendingMachine.GetReturnedCoinCount());
 }
+
+
 
 
 
