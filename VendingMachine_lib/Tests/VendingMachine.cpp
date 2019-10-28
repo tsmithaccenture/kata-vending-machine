@@ -1,224 +1,202 @@
 #include <VendingMachine.h>
 #include "gtest/gtest.h"
 
-const double pennyDiameter = 19.05;
-const int productPriceInCents = 100;
+class vendingMachineFixture: public ::testing::Test {
+public:
+    VendingMachine vendingMachine;
 
-TEST(VendingMachineSuite, whenAQaurterDiameterIsInserted_thenUpdateTotalAmountToTwentyFive){
-    VendingMachine vendingMachine = VendingMachine();
+    void SetUp( ) {
+        vendingMachine = VendingMachine();
+    }
+};
 
-    vendingMachine.InsertCoin(quarterDiameter);
+TEST_F(vendingMachineFixture, whenAQuarterIsInserted_ThenReturnTwentyFiveCentsValue){
+    double value = vendingMachine.InsertCoin(quarterDiameterInMillimeters, quarterWeightInGrams);
 
-    EXPECT_EQ(quarterValueInCents, vendingMachine.GetTotalValueInCents());
+    EXPECT_EQ(quarterValueInCents, value);
 }
 
-TEST(VendingMachineSuite, whenADimeDiameterIsInserted_thenUpdateTotalAmountToTen){
-    VendingMachine vendingMachine = VendingMachine();
+TEST_F(vendingMachineFixture, whenAQuarterWithAnInvalidDiameterIsInserted_ThenReturnZeroCentsValue){
+    double value = vendingMachine.InsertCoin(0.1, quarterWeightInGrams);
 
-    vendingMachine.InsertCoin(dimeDiameter);
-
-    EXPECT_EQ(dimeValueInCents, vendingMachine.GetTotalValueInCents());
+    EXPECT_EQ(0.00, value);
 }
 
-TEST(VendingMachineSuite, whenANickelDiameterIsInserted_thenUpdateTotalAmountToFive){
-    VendingMachine vendingMachine = VendingMachine();
+TEST_F(vendingMachineFixture, whenAQuarterWithAnInvalidWeightIsInserted_ThenReturnZeroCentsValue){
+    double value = vendingMachine.InsertCoin(quarterDiameterInMillimeters, 0.1);
 
-    vendingMachine.InsertCoin(nickelDiameter);
-
-    EXPECT_EQ(nickelValueInCents, vendingMachine.GetTotalValueInCents());
+    EXPECT_EQ(0.00, value);
 }
 
-TEST(VendingMachineSuite, whenAQuarterIsInserted_thenMessageIsUpdatedTo25Cents){
-    VendingMachine vendingMachine = VendingMachine();
+TEST_F(vendingMachineFixture, whenADimeIsInserted_ThenReturnTenCentsValue){
+    double value = vendingMachine.InsertCoin(dimeDiameterInMillimeters, dimeWeightInGrams);
 
-    vendingMachine.InsertCoin(quarterDiameter);
-    EXPECT_EQ("0.25", vendingMachine.GetMessage());
+    EXPECT_EQ(dimeValueInCents, value);
 }
 
-TEST(VendingMachineSuite, whenADimeIsInserted_thenMessageIsUpdatedTo10Cents){
-    VendingMachine vendingMachine = VendingMachine();
+TEST_F(vendingMachineFixture, whenADimeWithAnInvalidDiameterIsInserted_ThenReturnZeroCentsValue){
+    double value = vendingMachine.InsertCoin(0.1, dimeWeightInGrams);
 
-    vendingMachine.InsertCoin(dimeDiameter);
-    EXPECT_EQ("0.10", vendingMachine.GetMessage());
+    EXPECT_EQ(0.00, value);
 }
 
-TEST(VendingMachineSuite, whenAPennyIsInserted_thenMessageSaysInsertCoin){
-    VendingMachine vendingMachine = VendingMachine();
+TEST_F(vendingMachineFixture, whenADimeWithAnInvalidWeightIsInserted_ThenReturnZeroCentsValue){
+    double value = vendingMachine.InsertCoin(dimeDiameterInMillimeters, 0.1);
 
-    vendingMachine.InsertCoin(pennyDiameter);
-
-    EXPECT_EQ("INSERT COIN", vendingMachine.GetMessage());
+    EXPECT_EQ(0.00, value);
 }
 
-TEST(VendingMachineSuite, whenAPennyAndAQuarterAreInserted_thenUpdateTotalAmountToTwentyFive){
-    VendingMachine vendingMachine = VendingMachine();
+TEST_F(vendingMachineFixture, whenANickelIsInserted_ThenReturnFiveCentsValue){
+    double value = vendingMachine.InsertCoin(nickelDiameterInMillimeters, nickelWeightInGrams);
 
-    vendingMachine.InsertCoin(pennyDiameter);
-    vendingMachine.InsertCoin(quarterDiameter);
-
-    EXPECT_EQ(25, vendingMachine.GetTotalValueInCents());
+    EXPECT_EQ(nickelValueInCents, value);
 }
 
-TEST(VendingMachineSuite, whenADimeAndAQuarterAreInserted_thenUpdateTotalAmountTo35){
-    VendingMachine vendingMachine = VendingMachine();
+TEST_F(vendingMachineFixture, whenANickelWithAnInvalidDiameterIsInserted_ThenReturnZeroCentsValue){
+    double value = vendingMachine.InsertCoin(0.1, nickelWeightInGrams);
 
-    vendingMachine.InsertCoin(dimeDiameter);
-    vendingMachine.InsertCoin(quarterDiameter);
-
-    EXPECT_EQ(35, vendingMachine.GetTotalValueInCents());
+    EXPECT_EQ(0.00, value);
 }
 
-TEST(VendingMachineSuite, whenAQuarterAndNickelandDimeAreInserted_thenUpdateTotalAmountTo40){
-    VendingMachine vendingMachine = VendingMachine();
+TEST_F(vendingMachineFixture, whenANickelWithAnInvalidWeightIsInserted_ThenReturnZeroCentsValue){
+    double value = vendingMachine.InsertCoin(nickelDiameterInMillimeters, 0.1);
 
-    vendingMachine.InsertCoin(quarterDiameter);
-    vendingMachine.InsertCoin(dimeDiameter);
-    vendingMachine.InsertCoin(nickelDiameter);
-
-    EXPECT_EQ(40, vendingMachine.GetTotalValueInCents());
+    EXPECT_EQ(0.00, value);
 }
 
-TEST(VendingMachineSuite, whenOnePennyIsInserted_thenInvalidCoinCountIsOne){
-    VendingMachine vendingMachine = VendingMachine();
+TEST_F(vendingMachineFixture, whenTwentyFiveCentsValueIsAddedToTotalValue_ThenReturnTwentyFiveCentsValue){
+    double totalValue = vendingMachine.AddInsertedValue(0.25);
 
-    vendingMachine.InsertCoin(pennyDiameter);
-
-    EXPECT_EQ(1, vendingMachine.GetReturnedCoinCount());
+    EXPECT_EQ(0.25, totalValue);
 }
 
-TEST(VendingMachineSuite, whenOneQuarterIsInserted_thenInvalidCoinCountIsZero){
-    VendingMachine vendingMachine = VendingMachine();
+TEST_F(vendingMachineFixture, whenTwentyFiveCentsValueIsAddedToTotalValueTwice_ThenReturnFiftyCentsValue){
+    double totalValue = vendingMachine.AddInsertedValue(0.25);
 
-    vendingMachine.SetTotalAmount(25);
+    EXPECT_EQ(0.25, totalValue);
 
-    EXPECT_EQ(0, vendingMachine.GetReturnedCoinCount());
+    totalValue = vendingMachine.AddInsertedValue(0.25);
+
+    EXPECT_EQ(0.50, totalValue);
 }
 
-TEST(VendingMachineSuite, when50CentsIsInserted_andProductSelectedCostsOneDollar_thenAvailabilityToBuyIsFalse){
-    VendingMachine vendingMachine = VendingMachine();
-    vendingMachine.InsertCoin(quarterDiameter);
-    vendingMachine.InsertCoin(quarterDiameter);
-    vendingMachine.BuyProduct(100);
+TEST_F(vendingMachineFixture, whenTwoQuartersAreInserted_ThenReturnFiftyCentsValue){
+    double value = vendingMachine.InsertCoin(quarterDiameterInMillimeters, quarterWeightInGrams);
 
-    EXPECT_FALSE(vendingMachine.ableToBuyProduct);
+    EXPECT_EQ(0.25, value);
+
+    value = vendingMachine.InsertCoin(quarterDiameterInMillimeters, quarterWeightInGrams);
+
+    EXPECT_EQ(0.50, value);
 }
 
+TEST_F(vendingMachineFixture, whenTwentyFiveCentsValueIsSentToUpdateMessage_ThenReturnFormattedValue){
+    std::string formattedValue = vendingMachine.UpdateMessage(0.25);
 
-
-
-TEST(VendingMachineSuite, WhenYouHaveADollarandProductSelectedCostsOneDollar_thenAvailabilityToBuyIsTrue){
-    VendingMachine vendingMachine = VendingMachine();
-    vendingMachine.SetTotalAmount(100);
-    vendingMachine.BuyProduct(100);
-    EXPECT_TRUE(vendingMachine.ableToBuyProduct);
+    EXPECT_EQ("$0.25", formattedValue);
 }
 
-TEST(VendingMachineSuite, WhenYouHaveADollarandProductSelectedCosts50Cents_thenTotalAmountIsReduced){
-    VendingMachine vendingMachine = VendingMachine();
-    vendingMachine.SetTotalAmount(100);
-    vendingMachine.BuyProduct(50);
-    EXPECT_EQ(50, vendingMachine.GetTotalValueInCents());
+TEST_F(vendingMachineFixture, whenFiveCentsValueIsSentToUpdateMessage_ThenReturnFormattedValue){
+    std::string formattedValue = vendingMachine.UpdateMessage(0.05);
+
+    EXPECT_EQ("$0.05", formattedValue);
 }
 
-TEST(VendingMachineSuite, WhenYouHaveADollarandProductSelectedCostsOneDollarCents_thenTotalAmountIsReduced){
-    VendingMachine vendingMachine = VendingMachine();
-    vendingMachine.InsertCoin(quarterDiameter);
-    vendingMachine.SetTotalAmount(100);
-    vendingMachine.BuyProduct(productPriceInCents);
-    EXPECT_EQ(0, vendingMachine.GetTotalValueInCents());
+TEST_F(vendingMachineFixture, whenTenCentsValueIsSentToUpdateMessage_ThenReturnFormattedValue){
+    std::string formattedValue = vendingMachine.UpdateMessage(0.10);
+
+    EXPECT_EQ("$0.10", formattedValue);
 }
 
-TEST(VendingMachineSuite, whenOneDollarIsInserted_andProductSelectedCostsOneDollar_thenDisplayTHANKYOU){
-    VendingMachine vendingMachine = VendingMachine();
-    vendingMachine.SetTotalAmount(100);
-    vendingMachine.BuyProduct(productPriceInCents);
+TEST_F(vendingMachineFixture, whenUpdateMessageIsSentTenCentsValue_ThenGetMessageReturnsFormattedValue){
+    vendingMachine.UpdateMessage(0.10);
 
-    EXPECT_EQ("THANK YOU",vendingMachine.GetMessage());
+    EXPECT_EQ("$0.10", vendingMachine.GetMessage());
 }
 
-TEST(VendingMachineSuite, whenOneDollarIsInserted_andProductSelectedCostsOneDollar_thenDisplayTHANKYOUThenINSERTCOIN){
-    VendingMachine vendingMachine = VendingMachine();
-    vendingMachine.SetTotalAmount(100);
-    vendingMachine.BuyProduct(productPriceInCents);
+TEST_F(vendingMachineFixture, whenTwentyFiveCentsValueIsAddedToTotalValue_ThenGetMessageReturnsFormattedValue){
+    vendingMachine.AddInsertedValue(0.25);
 
-    EXPECT_EQ("THANK YOU",vendingMachine.GetMessage());
-    EXPECT_EQ("INSERT COIN",vendingMachine.GetMessage());
-    EXPECT_EQ(0,vendingMachine.GetTotalValueInCents());
-
+    EXPECT_EQ("$0.25", vendingMachine.GetMessage());
 }
 
-TEST(VendingMachineSuite, whenOneDollarIsInserted_andProductSelectedCostsSixtyFiveCents_thenDisplayTHANKYOUThenINSERTCOIN){
-    VendingMachine vendingMachine = VendingMachine();
-    vendingMachine.InsertCoin(quarterDiameter);
-    vendingMachine.InsertCoin(quarterDiameter);
-    vendingMachine.InsertCoin(quarterDiameter);
-    vendingMachine.InsertCoin(quarterDiameter);
-    vendingMachine.ImplementationOfBuyingProcess("candy");
+TEST_F(vendingMachineFixture, whenAPennyIsInserted_ThenReturnZeroCentsValue){
+    double value = vendingMachine.InsertCoin(pennyDiameterInMillimeters, pennyWeightInGrams);
 
-    EXPECT_EQ("THANK YOU",vendingMachine.GetMessage());
-    EXPECT_EQ("INSERT COIN",vendingMachine.GetMessage());
-    EXPECT_EQ(0,vendingMachine.GetTotalValueInCents());
-
+    EXPECT_EQ(0.00, value);
 }
 
-TEST(VendingMachineSuite, when25CentsIsInserted_andProductSelectedCostsOneDollar_thenDisplayIsUpdatedToShowCost){
-    VendingMachine vendingMachine = VendingMachine();
-    vendingMachine.SetTotalAmount(25);
-    vendingMachine.ImplementationOfBuyingProcess("chips");
-    EXPECT_EQ("PRICE 0.50",vendingMachine.GetMessage());
+TEST_F(vendingMachineFixture, whenAPennyWithAnInvalidDiameterIsInserted_ThenReturnZeroCentsValue){
+    double value = vendingMachine.InsertCoin(0.1, pennyWeightInGrams);
+
+    EXPECT_EQ(0.00, value);
 }
 
-TEST(VendingMachineSuite, whenOneDollarHasBeenInserted_andChipsIsSelected_thenCoinReturnHasChange){
-    VendingMachine vendingMachine = VendingMachine();
+TEST_F(vendingMachineFixture, whenAPennyWithAnInvalidWeightIsInserted_ThenReturnZeroCentsValue){
+    double value = vendingMachine.InsertCoin(pennyDiameterInMillimeters, 0.1);
 
-    vendingMachine.SetTotalAmount(100);
-
-    vendingMachine.ImplementationOfBuyingProcess("chips");
-    EXPECT_EQ(50, vendingMachine.GetReturnedCoinCount());
+    EXPECT_EQ(0.00, value);
 }
 
-TEST(VendingMachineSuite, selectProductReturnsChangeAmount){
-    VendingMachine vendingMachine = VendingMachine();
+TEST_F(vendingMachineFixture, whenAddReturnedCoinIsSentOneCentValue_ThenReturnReturnedCoinsCountOfOne){
+    int returnedCoinsCount = vendingMachine.AddReturnedCoins(0.01);
 
-    vendingMachine.SetTotalAmount(100);
-    vendingMachine.ImplementationOfBuyingProcess("chips");
-
-    EXPECT_EQ(50,vendingMachine.GetReturnedCoinCount());
+    EXPECT_EQ(1, returnedCoinsCount);
 }
 
-TEST(VendingMachineSuite, whenOneDollarHasBeenInserted_andColaIsSelected_thenCoinReturnHasNoChange){
-    VendingMachine vendingMachine = VendingMachine();
+TEST_F(vendingMachineFixture, whenAddReturnedCoinIsSentOneCentValueTwice_ThenReturnReturnedCoinsCountOfTwo){
+    int returnedCoinsCount = vendingMachine.AddReturnedCoins(0.01);
 
-    vendingMachine.SetTotalAmount(100);
+    EXPECT_EQ(1, returnedCoinsCount);
 
-    vendingMachine.ImplementationOfBuyingProcess("cola");
-    EXPECT_EQ(0, vendingMachine.GetReturnedCoinCount());
+    returnedCoinsCount = vendingMachine.AddReturnedCoins(0.01);
+
+    EXPECT_EQ(2, returnedCoinsCount);
 }
 
-TEST(VendingMachineSuite, whenOneDollar_andReturnCoinsIsPressed_thenCoinReturnHasChange){
-    VendingMachine vendingMachine = VendingMachine();
+TEST_F(vendingMachineFixture, whenAddReturnedCoinIsSentOneCentValueTwice_ThenGetReturnedCoinsReturnsReturnedCoins){
+    vendingMachine.AddReturnedCoins(0.01);
+    vendingMachine.AddReturnedCoins(0.01);
 
-    vendingMachine.SetTotalAmount(100);
-    vendingMachine.ReturnCoins();
-    EXPECT_EQ(100, vendingMachine.GetReturnedCoinCount());
+    std::vector<double> returnedCoins = vendingMachine.GetReturnedCoins();
+
+    EXPECT_EQ(2, returnedCoins.size());
 }
 
-TEST(VendingMachineSuite, whenExactChangeOnly_isInEnabled_EXACTCHANGEONLYIsDisplayed){
-    VendingMachine vendingMachine = VendingMachine();
+TEST_F(vendingMachineFixture, whenAPennyIsInserted_ThenGetReturnedCoinsReturnsOneCoin){
+    vendingMachine.InsertCoin(pennyDiameterInMillimeters, pennyWeightInGrams);
 
-    vendingMachine.SetVendingMachine(true);
-    EXPECT_EQ("EXACT CHANGE ONLY", vendingMachine.GetMessage());
+    std::vector<double> returnedCoins = vendingMachine.GetReturnedCoins();
+
+    EXPECT_EQ(1, returnedCoins.size());
 }
 
-TEST(VendingMachineSuite, whenExactChangeOnly_isInNotEnabled_EXACTCHANGEONLYIsDisplayed){
-    VendingMachine vendingMachine = VendingMachine();
+TEST_F(vendingMachineFixture, whenGetProductPriceIsSentProductOne_ThenPriceOfOneDollarIsReturned){
+    double price = vendingMachine.GetProductPrice(1);
 
-    vendingMachine.SetVendingMachine(false);
-    EXPECT_EQ("INSERT COIN", vendingMachine.GetMessage());
+    EXPECT_EQ(1.00, price);
 }
 
+TEST_F(vendingMachineFixture, whenGetProductPriceIsSentProductTwo_ThenPriceOfFiftyCentsIsReturned){
+    double price = vendingMachine.GetProductPrice(2);
 
+    EXPECT_EQ(0.50, price);
+}
 
+TEST_F(vendingMachineFixture, whenGetProductPriceIsSentProductThree_ThenPriceOfSixtyFiveCentsIsReturned){
+    double price = vendingMachine.GetProductPrice(3);
 
+    EXPECT_EQ(0.65, price);
+}
 
+TEST_F(vendingMachineFixture, whenIsInsertedGreaterThanOrEqualToPriceIsSentProductOne_AndTotalValueIsOneDollar_ThenReturnsTrue){
+    vendingMachine.AddInsertedValue(1.00);
 
+    EXPECT_TRUE(vendingMachine.IsInsertedGreaterThanOrEqualToPrice(1));
+}
+
+TEST_F(vendingMachineFixture, whenIsInsertedGreaterThanOrEqualToPriceIsSentProductOne_AndTotalValueIsNinetyCents_ThenReturnsFalse){
+    vendingMachine.AddInsertedValue(0.90);
+
+    EXPECT_FALSE(vendingMachine.IsInsertedGreaterThanOrEqualToPrice(1));
+}

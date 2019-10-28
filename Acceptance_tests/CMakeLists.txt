@@ -1,0 +1,7 @@
+project(Acceptance_tests)
+
+add_executable(Acceptance_tests_run VendingMachine.cpp)
+
+target_link_libraries(Acceptance_tests_run VendingMachine_lib)
+
+target_link_libraries(Acceptance_tests_run gtest gtest_main)

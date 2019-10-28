@@ -1,96 +1,77 @@
 #include "VendingMachine.h"
 
 std::string VendingMachine::GetMessage() {
-    std::stringstream stream;
-    std::string message = "INSERT COIN";
-    if(exactChangeOnly) {
-        message = "EXACT CHANGE ONLY";
+    std::string result = "INSERT COIN";
+    if (!displayMessage.empty()){
+        result = displayMessage;
     }
-    else if(ableToBuyProduct) {
-        message = "THANK YOU";
-        ResetVendingMachine();
-    }
-    else if(!ableToBuyProduct && purchasePriceInCents > 0){
-        stream << "PRICE " << std::fixed << std::setprecision(2) << purchasePriceInCents / 100.00;
-        message = stream.str();
-    }
-    else if (totalValueInCents > 0){
-        stream << std::fixed << std::setprecision(2) << totalValueInCents / 100.00;
-        message = stream.str();
-    }
-    return message;
+    return result;
 }
 
-void VendingMachine::InsertCoin(double diameter) {
-    if (diameter == dimeDiameter){
-        totalValueInCents += dimeValueInCents;
+double VendingMachine::InsertCoin(double diameter, double weight) {
+    double value = 0.00;
+    if (diameter == quarterDiameterInMillimeters && weight == quarterWeightInGrams){
+        value = 0.25;
     }
-    else if(diameter == nickelDiameter){
-        totalValueInCents += nickelValueInCents;
+    else if (diameter == dimeDiameterInMillimeters && weight == dimeWeightInGrams){
+        value = 0.10;
     }
-    else if(diameter == quarterDiameter){
-        totalValueInCents += quarterValueInCents;
+    else if (diameter == nickelDiameterInMillimeters && weight == nickelWeightInGrams){
+        value = 0.05;
     }
-    else{
-        returnedCoinCount++;
+    else if (diameter == pennyDiameterInMillimeters && weight == pennyWeightInGrams){
+        AddReturnedCoins(0.01);
     }
+    return AddInsertedValue(value);
 }
 
-int VendingMachine::GetTotalValueInCents() {
-    return totalValueInCents;
+double VendingMachine::AddInsertedValue(double value) {
+    totalInsertedValue += value;
+    UpdateMessage(totalInsertedValue);
+    return totalInsertedValue;
 }
 
-int VendingMachine::GetReturnedCoinCount() {
-    return returnedCoinCount;
+std::string VendingMachine::UpdateMessage(double value) {
+    std::ostringstream streamObject;
+    streamObject << std::fixed << std::setprecision(2) << value;
+    std::string formattedValue = "$" + streamObject.str();
+    displayMessage = formattedValue;
+    return formattedValue;
 }
 
-std::string VendingMachine::ImplementationOfBuyingProcess(std::string selectedProduct) {
-    std::string vendedProduct = "";
-    if(selectedProduct.compare("cola") == 0){
-        BuyProduct(COLA_COST);
+std::vector<double> VendingMachine::GetReturnedCoins() {
+    return returnedCoins;
+}
+
+int VendingMachine::AddReturnedCoins(double value) {
+    returnedCoins.push_back(value);
+    return returnedCoins.size();
+}
+
+bool VendingMachine::SelectProduct(int) {
+    return false;
+}
+
+int VendingMachine::GetDispensedProductId() {
+    return 0;
+}
+
+double VendingMachine::GetProductPrice(int productId) {
+    double result = 1.00;
+    if (productId == 2){
+        result = 0.50;
     }
-    else if(selectedProduct.compare("chips")  == 0){
-        BuyProduct(CHIPS_COST);
+    else if (productId == 3){
+        result = 0.65;
     }
-    else if(selectedProduct.compare("candy") == 0){
-        BuyProduct(CANDY_COST);
+    return result;
+}
+
+bool VendingMachine::IsInsertedGreaterThanOrEqualToPrice(int productId) {
+    bool result = false;
+    if (totalInsertedValue == GetProductPrice(productId)){
+        result = true;
     }
-    if(ableToBuyProduct) {
-        SetReturnedCoins(totalValueInCents);
-        vendedProduct = selectedProduct;
-    }
-    return vendedProduct;
-}
-
-void VendingMachine::BuyProduct(int productCostInCents) {
-    if(totalValueInCents >= productCostInCents){
-        ableToBuyProduct = true;
-        SetTotalAmount(totalValueInCents-=productCostInCents);
-    }
-    purchasePriceInCents = productCostInCents;
-}
-
-/* When you return coins, they should no longer be in your total amount.*/
-void VendingMachine::SetReturnedCoins(int amount){
-    returnedCoinCount = amount;
-}
-
-void VendingMachine::SetTotalAmount(int amount){
-    totalValueInCents = amount;
-}
-
-void VendingMachine::ResetVendingMachine() {
-    ableToBuyProduct = false;
-    purchasePriceInCents = 0;
-    totalValueInCents = 0;
-}
-
-void VendingMachine::ReturnCoins() {
-    returnedCoinCount += totalValueInCents;
-    SetTotalAmount(0);
-}
-
-void VendingMachine::SetVendingMachine(bool SetExactChangeOnly){
-    exactChangeOnly = SetExactChangeOnly;
+    return result;
 }
 
